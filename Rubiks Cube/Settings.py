@@ -42,7 +42,7 @@ class SettingsWindow:
     def display_window(self):
         self._Window = tk.Tk()
         self._Window.title("Settings")
-        self._Window.geometry("780x400")
+        self._Window.geometry("780x420")
         self._Window.resizable(0,0)
         self.create_interface()
         while True:
