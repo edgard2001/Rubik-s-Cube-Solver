@@ -272,6 +272,7 @@ def change_moves_of_solution(Algorithm):
                         if AxisOfLayerRotation[2] == Axis[2]:
                             MoveLabels[i].configure(text = TurnNotation[Move] + OriginalMove[1])
 
+
 def change_move_colour(CorrectMove):
     global MoveLabels
     global UndoMoves
@@ -295,7 +296,7 @@ def change_move_colour(CorrectMove):
 def clear_solution_algorithm():
     global MoveLabels
     for Label in MoveLabels:
-        Label.configure(text = "")
+        Label.configure(text = " ")
 
 Frame2 = tk.Frame(MainWindow, height = 200, width = 800, bg = "#555555")
 Frame2.grid(row = 1)
@@ -352,12 +353,22 @@ def load_tutorial(Tutorial):
     global Solution
     global UndoMoves
     global RedoMoves
+    global UndoMove
+    global ToggleUndo
+    global RedoMove
+    global ToggleRedo
     if Tutorial == 0:
         Net = set_net(NetBackup)
         Cube = create_cube_from_net(Net)
         UndoMoves = []
         RedoMoves = []
         Solution = []
+        UndoMove = False
+        ToggleUndo = False
+        RedoMove = False
+        ToggleRedo = False
+        DisplayTutorial = False
+        DisplaySolution = False
         clear_solution_algorithm()
     else:
         Moves = ["U","D","L","R","F","B","M","E","S"]
@@ -1131,6 +1142,8 @@ while True:
         
     try:
         if DisplaySolution or DisplayTutorial:
+            if DisplaySolution:
+                Solution = UndoMoves + RedoMoves[::-1]
             change_moves_of_solution(Solution)
         TutorialSelected = TutorialsListBox.curselection()
         if TutorialSelected != () and not AnimateTurn and not Scramble:
